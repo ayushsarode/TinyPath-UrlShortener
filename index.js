@@ -7,14 +7,14 @@ const { restrictToLoggedinUserOnly, checkAuth } = require('./middleware/auth')
 const staticRoute = require('./routes/staticRouter')
 const urlRoute = require("./routes/routes")
 const userRoute = require("./routes/user")
-
+require('dotenv').config();
 
 const app = express()
 const PORT = process.env.PORT || 8000;
+const mongoURI = process.env.MONGODB_URI;
 
 
-
-connectToMongoDB('mongodb://localhost:27017/url-shortener').then(() => {
+connectToMongoDB(mongoURI).then(() => {
     console.log('MongoDB Successfully Connected');
 })
 
