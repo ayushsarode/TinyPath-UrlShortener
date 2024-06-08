@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiny Path</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Vast+Shadow&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+
+</head>
+<style>
+    th,
+    td {
+        border: 1px solid #fff;
+        text-align: left;
+        padding: 8px;
+background: #000;
+    }
+
+
+    th {
+        border: 2px solid #fff;
+    }
+
+    .heading {
+        margin: 0;
+        font-family: "Abril Fatface", serif;
+        font-weight: 400;
+        font-style: normal;
+        display: inline-block;
+    }
+
+
+    label,
+    input {
+        font-family: sans-serif;
+        padding-bottom: 10px;
+        font-size: 23px;
+        padding-bottom: 0px;
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    form {
+        margin-bottom: 20px;
+    }
+
+    input {
+        height: 30px;
+        border-radius: 2px;
+        border: none;
+        background-color: white;
+        border: 2px solid black;
+        padding-top: 6px;
+        padding-bottom: 6px;
+        margin-left: 8px;
+    }
+
+    body {
+        color: white;
+        background: #000;
+
+    }
+
+    .table-container {
+        overflow-x: auto;
+        max-width: 100%;
+    }
+
+
+    table {
+        background: #F1F1F1;
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 25px;
+
+    }
+
+    div {
+        align-items: center;
+        margin: 0px;
+    }
+
+    button {
+        background-color: black;
+        color: white;
+        font-size: 25px;
+        border-radius: 2px;
+        border: none;
+        border: solid white 2px;
+        padding: 8px 12px;
+    }
+
+    button:hover {
+        /* border: solid black 2px; */
+        background-color: #1a1a1a;
+        color: white;
+        transition: .2s;
+        cursor: pointer;
+    }
+
+    .name {
+        font-family: "Roboto", sans-serif;
+        font-size: 20px;
+        margin: 0;
+        padding: 0;
+        font-weight: 500;
+        display: inline-block;
+        display: flex;
+        align-items: center;
+
+    }
+
+    .content {
+        display: flex;
+        justify-content: space-between;
+        width: 96%;
+        margin-top: 8px;
+    }
+
+    .wrapper {
+        text-align: center;
+        justify-content: center;
+        display: flex;
+    }
+
+
+    .main-content {
+        margin: 30px;
+    }
+
+    i {
+        font-size: 35px;
+        padding-left: 10px;
+    }
+
+    .links {
+        text-wrap: wrap;
+        width: 150px;
+    }
+
+    th.links,
+    td.links {
+        max-width: 900px;
+        /* Set maximum width */
+        word-wrap: break-word;
+        /* Enable word wrapping */
+        white-space: normal;
+        /* Allow the text to wrap to the next line */
+    }
+
+label, input{
+    margin-top: 20px;
+}
+
+</style>
+
+
+<body>
+    <div class="wrapper">
+        <div class="content">
+            <span>
+                <h1 class="heading">Tiny Path</h1>
+            </span>
+            <span>
+                <% if (locals.userName) { %>
+                    <h1 class="name">
+                        
+                        <%= userName %>
+                        <i class="fas fa-user-circle"></i>
+                    </h1>
+
+                    <% } %>
+
+            </span>
+        </div>
+    </div>
+    <% if (locals.id) { %>
+        <p class="textplace">URL Generated: http://localhost:8000/url/<%= id %>
+        </p>
+        <% } %>
+            <div class="main-content">
+                <div class="generate">
+                    <form method="POST" action="/url">
+                        <label>Enter your original URL:</label>
+                        <input type="text" placeholder="https://example.com" name="url">
+                        <button type="submit">Generate</button>
+                    </form>
+                </div>
+
+
+                <div>
+                    <% if (locals.urls) { %>
+
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <th>S. No</th>
+                                    <th>ShortID</th>
+                                    <th class="links">Redirect</th>
+                                    <th>Clicks</th>
+                                </thead>
+                                <tbody>
+                                    <% urls.forEach((url, index)=> { %>
+                                        <tr>
+                                            <td>
+                                                <%= index + 1 %>
+                                            </td>
+                                            <td>
+                                                <%= url.shortId %>
+                                            </td>
+                                            <td class="links">
+                                                <%= url.redirectURL %>
+                                            </td>
+                                            <td>
+                                                <%= url.visitHistory.length %>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                        <% } %>
+                </div>
+            </div>
+</body>
+
+</html>
